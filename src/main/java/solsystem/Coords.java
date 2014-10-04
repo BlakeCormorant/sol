@@ -11,13 +11,13 @@ public class Coords<T>{
         this.x = 0;
         this.y = 0;
     }
-
+*/
 	// I would like to get the following one working
     public Coords(T x, T y){
         this.x = x;
         this.y = y;
     }
-*/
+
     public void Set(T x, T y){
         this.x = x;
         this.y = y;
