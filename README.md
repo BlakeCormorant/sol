@@ -1,0 +1,4 @@
+sol
+===
+
+Sol Base Game
