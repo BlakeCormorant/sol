@@ -19,8 +19,8 @@ public class Body {
     private double mass;
     private double orbit;
     private Color color;
-    private Coords<Double> location = new Coords<>(); // cannot do Coords<double>, since containers cannot contain primitives.
-    private Coords<Double> velocity = new Coords<>();
+    private Coords<Double> location = new Coords<>(new Double(0), new Double(0)); // cannot do Coords<double>, since containers cannot contain primitives.
+    private Coords<Double> velocity = new Coords<>(new Double(0), new Double(0));
     private Logger dbgLog;
 
     public Body(String bodyName, double bodyMass, double bodyOrbit, Color bodyColour, Coords<Double> startLocation, Coords<Double> startVelocity){

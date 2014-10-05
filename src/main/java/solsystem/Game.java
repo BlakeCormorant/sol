@@ -48,13 +48,12 @@ public class Game {
     {
         System.out.println("Game.Initialize()...");
 
-        Double x = new Double(10);
-        Double y = new Double(20);
-        Coords<Double> position = new Coords<Double>(x,y);
-        //Coords<Double> position = new Coords<>(Double(10),Double(20));
+        //Double x = new Double(10);
+        //Double y = new Double(20);
+        Coords<Double> position = new Coords<>(new Double(40),new Double(50));
         // Try creating the planets here
-        //Body aBody = new Body("Mercury", 10, 20, Color.yellow, Coords<Double>((Double)50,(Double)50), Coords<Double>((double)2,(double)3));
-
+        //Body aBody = new Body("Mercury", 10, 20, Color.yellow, position, new Coords<>(new Double(70),new Double(80)));
+        Planet aPlanet = new Planet("Venus", 30, 40, Color.green, position, new Coords<>(new Double(100), new Double(110)));
     }
     
     /**
