@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Vector;
 import java.util.Stack;
 import java.util.List;
+import java.util.Iterator;
 
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 public class Game {
     //static const numPlanets = 3;
     //private Body planet[numPlanets]; // This would require a default constructor, which I don't want?
-    private List<Body> planetList = new ArrayList();
+    private List<Planet> planetList = new ArrayList();
 
     public Game()
     {
@@ -48,12 +49,15 @@ public class Game {
     {
         System.out.println("Game.Initialize()...");
 
-        //Double x = new Double(10);
-        //Double y = new Double(20);
-        Coords<Double> position = new Coords<>(new Double(40),new Double(50));
-        // Try creating the planets here
-        //Body aBody = new Body("Mercury", 10, 20, Color.yellow, position, new Coords<>(new Double(70),new Double(80)));
-        Planet aPlanet = new Planet("Venus", 30, 40, Color.green, position, new Coords<>(new Double(100), new Double(110)));
+        // Creating the planets here
+        planetList.add(new Planet("Mercury", 0.16601, 4878, 69817, 108943, 47.9, Color.yellow));
+        planetList.add(new Planet("Venus", 2.4478383, 12104, 108943, 107476, 35.0, Color.green));
+        planetList.add(new Planet("Earth", 3.00348959632, 12756, 152098, 147098, 29.8, Color.blue));
+        planetList.add(new Planet("Mars", 0.3227151, 6787, 249232, 206655, 24.1, Color.red));
+        planetList.add(new Planet("Jupiter", 954.79194, 142800, 816002, 740680, 13.1, Color.orange));
+        planetList.add(new Planet("Saturn", 285.8860, 120000, 1503509, 1349824, 9.6, Color.yellow));
+        planetList.add(new Planet("Uranus", 43.66244, 51200, 3006318, 2734998, 6.8, Color.green));
+        planetList.add(new Planet("Neptune", 51.51389, 48600, 4537040, 4459753, 5.4, Color.blue));
     }
     
     /**
@@ -104,5 +108,17 @@ public class Game {
         // Draw a dot
         g2d.setColor(Color.red);
         g2d.fillOval(50,50,3,3);
+
+        // Draw the planets
+        DrawPlanets(g2d);
+    }
+
+    public void DrawPlanets(Graphics2D g2d){
+        // Iterator
+        Iterator pli = planetList.iterator();
+        while(pli.hasNext()){
+            g2d.setColor(pli.next().color);
+            //g2d.fillOval(pli.next().screenLocation.x, screenLocation.y, 3, 3);
+        }
     }
 }
