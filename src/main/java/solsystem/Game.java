@@ -21,6 +21,7 @@ public class Game {
     //static const numPlanets = 3;
     //private Body planet[numPlanets]; // This would require a default constructor, which I don't want?
     private List<Planet> planetList = new ArrayList();
+    private Screen screen = new Screen();
 
     public Game()
     {
@@ -115,10 +116,15 @@ public class Game {
 
     public void DrawPlanets(Graphics2D g2d){
         // Iterator
-        Iterator pli = planetList.iterator();
+        Coords<Integer> screenPos;
+        Iterator<Planet> pli = planetList.iterator();
         while(pli.hasNext()){
-            g2d.setColor(pli.next().color);
-            //g2d.fillOval(pli.next().screenLocation.x, screenLocation.y, 3, 3);
+            Planet p = pli.next();
+            g2d.setColor(p.color);
+            //g2d.setColor(pli.next().color);
+            screenPos = screen.CalculateScreenPos(p.GetLocation());
+            g2d.fillOval(screenPos.x, screenPos.y, 3, 3);
         }
     }
+
 }

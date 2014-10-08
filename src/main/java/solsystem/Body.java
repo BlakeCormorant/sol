@@ -22,8 +22,8 @@ public class Body {
     public Color color;
     //private Coords<Double> location = new Coords<>(new Double(0), new Double(0)); // cannot do Coords<double>, since containers cannot contain primitives.
     //private Coords<Double> velocity = new Coords<>(new Double(0), new Double(0));
-    private Coords<Double> location; // cannot do Coords<double>, since containers cannot contain primitives.
-    public Coords<Integer> screenLocation;
+    private Coords<Double> location = new Coords<>((double)0, (double)0); // cannot do Coords<double>, since containers cannot contain primitives.
+    //public Coords<Integer> screenLocation; // This could be set by another class - actually,it should not be stored here
     private Coords<Double> velocity;
     private Logger dbgLog;
 
@@ -39,19 +39,22 @@ public class Body {
 
         // Need to calculate a suitable starting position and orbital speed (vector).
         CalculateStartingLocation();
-        CalculateScreenLocation();
+        //CalculateScreenLocation(); // Must be done elsewhere, as this Class won't have access to screen position, zoom, etc.
 
+    }
+
+    public Coords<Double> GetLocation(){
+        return location;
     }
 
     private void CalculateStartingLocation(){
+        System.out.printf("CalculateStartingLocation()...");
         // This is rubbish at the moment
+        System.out.printf("aphelion: %f\n", aphelion);
         location.x = aphelion;
+        System.out.printf("assignment made\n");
+        System.out.printf("location: %f\n", location.x);
         location.y = (double)0.0;
-    }
-
-    private void CalculateScreenLocation(){
-        screenLocation.x = 200;
-        screenLocation.y = 200;
     }
 
 }

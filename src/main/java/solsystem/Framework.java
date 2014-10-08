@@ -164,7 +164,7 @@ public class Framework extends Canvas {
                     //...
                 break;
                 case GAME_CONTENT_LOADING:
-                    dbgLog.log(Level.INFO, "GAME_CONTENT_LOADING");
+                    //dbgLog.log(Level.INFO, "GAME_CONTENT_LOADING");
                     //...
                 break;
                 case STARTING:
@@ -201,7 +201,7 @@ public class Framework extends Canvas {
             }
             
             // Repaint the screen.
-            repaint();
+            repaint(); // Part of awt
             
             // Here we calculate the time that defines for how long we should put thread to sleep to meet the GAME_FPS.
             timeTaken = System.nanoTime() - beginTime;
