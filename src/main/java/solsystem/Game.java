@@ -22,6 +22,7 @@ public class Game {
     //private Body planet[numPlanets]; // This would require a default constructor, which I don't want?
     private Screen screen; //= new Screen(800, 600);
     private Universe universe; // = new Universe();
+    private long gameDay;
 
     public Game()
     {
@@ -51,6 +52,7 @@ public class Game {
         System.out.println("Game.Initialize()...");
         screen = new Screen(800, 600);
         universe = new Universe();
+        gameDay = 0;
 
     }
     
@@ -81,8 +83,9 @@ public class Game {
      */
     public void UpdateGame(long gameTime, Point mousePosition)
     {
+        gameDay++;
         //System.out.println("Game.UpdateGame()..."); // This happens rather quickly
-        universe.UpdatePlanetPositions();
+        universe.UpdatePlanetPositions(gameDay);
 
     }
     
@@ -95,7 +98,7 @@ public class Game {
     public void Draw(Graphics2D g2d, Point mousePosition)
     {
         // This happens every UpdateGame
-
+        
         // Draw some text
         g2d.setColor(Color.white);
         g2d.drawString("This position.", mousePosition.x, mousePosition.y); // or GetX()?
@@ -105,7 +108,7 @@ public class Game {
         //g2d.fillOval(50,50,3,3);
 
         // Draw the planets
-        universe.DrawPlanets(g2d, screen);
+        universe.DrawEverything(g2d, screen);
     }
 
 

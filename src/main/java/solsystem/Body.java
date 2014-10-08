@@ -15,26 +15,28 @@ import java.util.Vector;
  */
 
 public class Body {
-    private String name;
+    public String name;
     private double mass;
     private double aphelion;
     private double perihelion;
+    private double period; // days
     public Color color;
     //private Coords<Double> location = new Coords<>(new Double(0), new Double(0)); // cannot do Coords<double>, since containers cannot contain primitives.
     //private Coords<Double> velocity = new Coords<>(new Double(0), new Double(0));
-    private Coords<Double> location = new Coords<>((double)0, (double)0); // cannot do Coords<double>, since containers cannot contain primitives.
+    public Coords<Double> location = new Coords<>((double)0, (double)0); // cannot do Coords<double>, since containers cannot contain primitives.
     //public Coords<Integer> screenLocation; // This could be set by another class - actually,it should not be stored here
     private Coords<Double> velocity;
     private Logger dbgLog;
 
     // Aphelion and perihelion are in 1000kms, diam in km, mass relative to sun x10^-6. Orbital speed in km(per s?).
-    public Body(String name, double mass, double diameter, double aphelion, double perihelion, double orbitalSpeed, Color colour){
+    public Body(String name, double mass, double diameter, double aphelion, double perihelion, double orbitalSpeed, double period, Color colour){
         dbgLog = Logger.getLogger(Framework.class.getName());
         dbgLog.log(Level.INFO, "Body Constructor");
         this.name = name;
         this.mass = mass;
         this.aphelion = aphelion;
         this.perihelion = perihelion;
+        this.period = period;
         this.color = colour;
 
         // Need to calculate a suitable starting position and orbital speed (vector).
@@ -43,9 +45,15 @@ public class Body {
 
     }
 
-    public Coords<Double> GetLocation(){
+    /*public Coords<Double> GetLocation(){
         return location;
     }
+*/
+    public double GetAphelion(){ return aphelion; }
+
+    public double GetPerihelion(){ return perihelion; }
+
+    public double GetPeriod(){ return period; }
 
     private void CalculateStartingLocation(){
         System.out.printf("CalculateStartingLocation()...");
