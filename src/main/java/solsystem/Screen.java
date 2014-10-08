@@ -20,18 +20,39 @@ public final class Screen{
     // Actually, probably would like to instantiate one of these, so probably still have static variables (as only have one screen).
     static int screenInstances = 0;
     //static Coords<Integer> centre = new Coords<Integer>(new Integer(0),new Integer(0));
-    static Coords<Integer> viewCentre = new Coords<Integer>((int)0,(int)0);
-    public Screen(){
+    static Coords<Double> viewUniverseCentre = new Coords<>((double)0,(double)0);
+    static double viewUniverseRightOfCentre = 250000; // If we know the window size, ie ratio, then we can work out all the other coords.
+    static private Coords<Integer> windowSize = new Coords<>((int)0,(int)0);
+    public Screen(int winWidth, int winHeight){
         if (screenInstances > 0){
             throw new RuntimeException("Screen instance already exists.");
         }
         screenInstances++;
 
+        windowSize.x = winWidth;
+        windowSize.y = winHeight;
+
 
     }
 
+    public void SetScreenCentre(double xUniverseViewCentre, double yUniverseViewCentre){
+        viewUniverseCentre.x = xUniverseViewCentre;
+        viewUniverseCentre.y = yUniverseViewCentre;
+    }
+
+    //public SetScreenZoom()
+
     public Coords<Integer> CalculateScreenPos(Coords<Double> universePos){
-        Coords<Integer> screenPos = new Coords<>(100, 110);
+        double xUnity = ((universePos.x - viewUniverseCentre.x) / viewUniverseRightOfCentre);
+        double yUnity = ((universePos.y - viewUniverseCentre.y) / viewUniverseRightOfCentre);
+
+        xUnity = (xUnity + 1.0) / 2.0;
+        yUnity = (yUnity + 1.0) / 2.0;
+
+        double xScaled = xUnity * windowSize.x;
+        double yScaled = yUnity * windowSize.y;
+
+        Coords<Integer> screenPos = new Coords<>((int)xScaled, (int)yScaled);
         return screenPos;
     }
 

@@ -50,10 +50,10 @@ public class Body {
     private void CalculateStartingLocation(){
         System.out.printf("CalculateStartingLocation()...");
         // This is rubbish at the moment
-        System.out.printf("aphelion: %f\n", aphelion);
+        //System.out.printf("aphelion: %f\n", aphelion);
         location.x = aphelion;
-        System.out.printf("assignment made\n");
-        System.out.printf("location: %f\n", location.x);
+        //System.out.printf("assignment made\n");
+        //System.out.printf("location: %f\n", location.x);
         location.y = (double)0.0;
     }
 

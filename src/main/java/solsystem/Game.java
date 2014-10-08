@@ -21,7 +21,7 @@ public class Game {
     //static const numPlanets = 3;
     //private Body planet[numPlanets]; // This would require a default constructor, which I don't want?
     private List<Planet> planetList = new ArrayList();
-    private Screen screen = new Screen();
+    private Screen screen = new Screen(800, 600);
 
     public Game()
     {
