@@ -20,8 +20,8 @@ import java.util.Iterator;
 public class Game {
     //static const numPlanets = 3;
     //private Body planet[numPlanets]; // This would require a default constructor, which I don't want?
-    private List<Planet> planetList = new ArrayList();
-    private Screen screen = new Screen(800, 600);
+    private Screen screen; //= new Screen(800, 600);
+    private Universe universe; // = new Universe();
 
     public Game()
     {
@@ -49,16 +49,9 @@ public class Game {
     private void Initialize()
     {
         System.out.println("Game.Initialize()...");
+        screen = new Screen(800, 600);
+        universe = new Universe();
 
-        // Creating the planets here
-        planetList.add(new Planet("Mercury", 0.16601, 4878, 69817, 108943, 47.9, Color.yellow));
-        planetList.add(new Planet("Venus", 2.4478383, 12104, 108943, 107476, 35.0, Color.green));
-        planetList.add(new Planet("Earth", 3.00348959632, 12756, 152098, 147098, 29.8, Color.blue));
-        planetList.add(new Planet("Mars", 0.3227151, 6787, 249232, 206655, 24.1, Color.red));
-        planetList.add(new Planet("Jupiter", 954.79194, 142800, 816002, 740680, 13.1, Color.orange));
-        planetList.add(new Planet("Saturn", 285.8860, 120000, 1503509, 1349824, 9.6, Color.yellow));
-        planetList.add(new Planet("Uranus", 43.66244, 51200, 3006318, 2734998, 6.8, Color.green));
-        planetList.add(new Planet("Neptune", 51.51389, 48600, 4537040, 4459753, 5.4, Color.blue));
     }
     
     /**
@@ -89,6 +82,7 @@ public class Game {
     public void UpdateGame(long gameTime, Point mousePosition)
     {
         //System.out.println("Game.UpdateGame()..."); // This happens rather quickly
+        universe.UpdatePlanetPositions();
 
     }
     
@@ -107,24 +101,13 @@ public class Game {
         g2d.drawString("This position.", mousePosition.x, mousePosition.y); // or GetX()?
 
         // Draw a dot
-        g2d.setColor(Color.red);
-        g2d.fillOval(50,50,3,3);
+        //g2d.setColor(Color.red);
+        //g2d.fillOval(50,50,3,3);
 
         // Draw the planets
-        DrawPlanets(g2d);
+        universe.DrawPlanets(g2d, screen);
     }
 
-    public void DrawPlanets(Graphics2D g2d){
-        // Iterator
-        Coords<Integer> screenPos;
-        Iterator<Planet> pli = planetList.iterator();
-        while(pli.hasNext()){
-            Planet p = pli.next();
-            g2d.setColor(p.color);
-            //g2d.setColor(pli.next().color);
-            screenPos = screen.CalculateScreenPos(p.GetLocation());
-            g2d.fillOval(screenPos.x, screenPos.y, 3, 3);
-        }
-    }
+
 
 }
