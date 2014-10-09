@@ -320,6 +320,9 @@ public class Framework extends Canvas {
                 if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER)
                     restartGame();
                 break;
+            case PLAYING:
+                game.HandleKeyboard(e);
+                break;
         }
     }
     

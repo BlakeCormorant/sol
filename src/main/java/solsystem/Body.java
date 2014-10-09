@@ -20,11 +20,9 @@ public class Body {
     private double aphelion;
     private double perihelion;
     private double period; // days
+    private double diameter;
     public Color color;
-    //private Coords<Double> location = new Coords<>(new Double(0), new Double(0)); // cannot do Coords<double>, since containers cannot contain primitives.
-    //private Coords<Double> velocity = new Coords<>(new Double(0), new Double(0));
     public Coords<Double> location = new Coords<>((double)0, (double)0); // cannot do Coords<double>, since containers cannot contain primitives.
-    //public Coords<Integer> screenLocation; // This could be set by another class - actually,it should not be stored here
     private Coords<Double> velocity;
     private Logger dbgLog;
 
@@ -34,6 +32,7 @@ public class Body {
         dbgLog.log(Level.INFO, "Body Constructor");
         this.name = name;
         this.mass = mass;
+        this.diameter = diameter;
         this.aphelion = aphelion;
         this.perihelion = perihelion;
         this.period = period;
@@ -49,6 +48,8 @@ public class Body {
         return location;
     }
 */
+    public double GetDiameter(){ return diameter; }
+
     public double GetAphelion(){ return aphelion; }
 
     public double GetPerihelion(){ return perihelion; }

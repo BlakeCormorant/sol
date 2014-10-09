@@ -23,6 +23,8 @@ public final class Screen{
     static Coords<Double> viewUniverseCentre = new Coords<>((double)0,(double)0);
     static double viewUniverseRightOfCentre = 250000; // If we know the window size, ie ratio, then we can work out all the other coords.
     static private Coords<Integer> windowSize = new Coords<>((int)0,(int)0);
+    final float panDivisor = 10;
+
     public Screen(int winWidth, int winHeight){
         if (screenInstances > 0){
             throw new RuntimeException("Screen instance already exists.");
@@ -54,6 +56,28 @@ public final class Screen{
 
         Coords<Integer> screenPos = new Coords<>((int)xScaled, (int)yScaled);
         return screenPos;
+    }
+
+    public void ZoomOut(){
+        viewUniverseRightOfCentre *= 2;
+    }
+    public void ZoomIn(){
+        viewUniverseRightOfCentre /= 2;
+    }
+    public void PanRight(){
+        viewUniverseCentre.x += (int)((float)viewUniverseRightOfCentre / panDivisor);
+    }
+    public void PanLeft(){
+        viewUniverseCentre.x -= (int)((float)viewUniverseRightOfCentre / panDivisor);
+    }
+    public void PanUp(){
+        viewUniverseCentre.y += (int)((float)viewUniverseRightOfCentre / panDivisor);
+    }
+    public void PanDown(){
+        viewUniverseCentre.y -= (int)((float)viewUniverseRightOfCentre / panDivisor);
+    }
+    public double GetZoom(){
+        return viewUniverseRightOfCentre;
     }
 
 }

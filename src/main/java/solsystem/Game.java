@@ -3,6 +3,7 @@ package solsystem;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -98,7 +99,7 @@ public class Game {
     public void Draw(Graphics2D g2d, Point mousePosition)
     {
         // This happens every UpdateGame
-        
+
         // Draw some text
         g2d.setColor(Color.white);
         g2d.drawString("This position.", mousePosition.x, mousePosition.y); // or GetX()?
@@ -111,6 +112,21 @@ public class Game {
         universe.DrawEverything(g2d, screen);
     }
 
+    public void HandleKeyboard(KeyEvent e){
+        if(e.getKeyCode() == KeyEvent.VK_MINUS)
+            screen.ZoomOut();
+        if(e.getKeyCode() == KeyEvent.VK_EQUALS) // this is actually minus
+            screen.ZoomIn();
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+            screen.PanRight();
+        if(e.getKeyCode() == KeyEvent.VK_LEFT)
+            screen.PanLeft();
+        if(e.getKeyCode() == KeyEvent.VK_DOWN)
+            screen.PanUp();
+        if(e.getKeyCode() == KeyEvent.VK_UP)
+            screen.PanDown();
 
+
+    }
 
 }

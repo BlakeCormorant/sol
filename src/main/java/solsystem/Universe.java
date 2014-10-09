@@ -39,26 +39,35 @@ public class Universe {
         DrawPlanets(g2d, screen);
     }
 
+    private void DrawBody(Graphics2D g2d, Screen screen, Body body){
+        Coords<Integer> screenPos;
+        double drawSize;
+        final double minBodySize = 2;
+        final double noShowSize = 0.001;
+
+        drawSize = 2 * body.GetDiameter() / screen.GetZoom();
+        if(drawSize < noShowSize)
+            return;
+        if(drawSize < minBodySize)
+            drawSize = minBodySize;
+        g2d.setColor(body.color);
+        screenPos = screen.CalculateScreenPos(body.location);
+        g2d.fillOval(screenPos.x - (int)(drawSize/2.0), screenPos.y - (int)(drawSize/2.0), (int)drawSize, (int)drawSize);
+
+    }
+
     private void DrawPlanets(Graphics2D g2d, Screen screen){
         // Iterator
-        Coords<Integer> screenPos;
         Iterator<Planet> pli = planetList.iterator();
+
         while(pli.hasNext()){
             Planet p = pli.next();
-            g2d.setColor(p.color);
-            //g2d.setColor(pli.next().color);
-            screenPos = screen.CalculateScreenPos(p.location);
-            g2d.fillOval(screenPos.x, screenPos.y, 3, 3);
+            DrawBody(g2d, screen, p);
         }
     }
 
     private void DrawSuns(Graphics2D g2d, Screen screen){
-        // Iterator
-        Coords<Integer> screenPos;
-        g2d.setColor(sun.color);
-        screenPos = screen.CalculateScreenPos(sun.location);
-        g2d.fillOval(screenPos.x, screenPos.y, 10, 10);
-
+        DrawBody(g2d, screen, sun);
     }
 
     public void UpdatePlanetPositions(long timeSlice){
