@@ -79,5 +79,21 @@ public final class Screen{
     public double GetZoom(){
         return viewUniverseRightOfCentre;
     }
+    public Coords<Double> GetUniverseCoords(Point screenPosition){
+        Coords<Double> retCoords = new Coords<>((double)0,(double)0);
 
+        double xUnity = (double)screenPosition.x / windowSize.x;
+        double yUnity = (double)screenPosition.y / windowSize.y;
+
+        xUnity = (xUnity * 2) - 1;
+        yUnity = (yUnity * 2) - 1;
+
+        double xScaled = (xUnity * viewUniverseRightOfCentre) + viewUniverseCentre.x;
+        double yScaled = (yUnity * viewUniverseRightOfCentre) + viewUniverseCentre.y;
+
+        retCoords.x = xScaled;
+        retCoords.y = yScaled;
+
+        return retCoords;
+    }
 }

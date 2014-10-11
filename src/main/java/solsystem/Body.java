@@ -21,13 +21,29 @@ public class Body {
     private double perihelion;
     private double period; // days
     private double diameter;
+    private double minTempK;
+    private double maxTempK;
     public Color color;
     public Coords<Double> location = new Coords<>((double)0, (double)0); // cannot do Coords<double>, since containers cannot contain primitives.
     private Coords<Double> velocity;
     private Logger dbgLog;
+/*
+    public Body(Body b) {
+        this.name = b.name;
+        this.mass = b.mass;
+        this.diameter = b.diameter;
+        this.aphelion = b.aphelion;
+        this.perihelion = b.perihelion;
+        this.period = b.period;
+        this.minTempK = b.minTempK;
+        this.maxTempK = b.maxTempK;
+        this.color = b.color;
+        this.location = b.location.
 
+    }
+*/
     // Aphelion and perihelion are in 1000kms, diam in km, mass relative to sun x10^-6. Orbital speed in km(per s?).
-    public Body(String name, double mass, double diameter, double aphelion, double perihelion, double orbitalSpeed, double period, Color colour){
+    public Body(String name, double mass, double diameter, double aphelion, double perihelion, double orbitalSpeed, double period, double minTempK, double maxTempK, Color colour){
         dbgLog = Logger.getLogger(Framework.class.getName());
         dbgLog.log(Level.INFO, "Body Constructor");
         this.name = name;
@@ -36,6 +52,8 @@ public class Body {
         this.aphelion = aphelion;
         this.perihelion = perihelion;
         this.period = period;
+        this.minTempK = minTempK;
+        this.maxTempK = maxTempK;
         this.color = colour;
 
         // Need to calculate a suitable starting position and orbital speed (vector).
@@ -55,6 +73,10 @@ public class Body {
     public double GetPerihelion(){ return perihelion; }
 
     public double GetPeriod(){ return period; }
+
+    public double GetMinTempK(){ return minTempK; }
+
+    public double GetMaxTempK(){ return maxTempK; }
 
     private void CalculateStartingLocation(){
         System.out.printf("CalculateStartingLocation()...");

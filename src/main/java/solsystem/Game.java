@@ -99,14 +99,9 @@ public class Game {
     public void Draw(Graphics2D g2d, Point mousePosition)
     {
         // This happens every UpdateGame
-
-        // Draw some text
-        g2d.setColor(Color.white);
-        g2d.drawString("This position.", mousePosition.x, mousePosition.y); // or GetX()?
-
-        // Draw a dot
-        //g2d.setColor(Color.red);
-        //g2d.fillOval(50,50,3,3);
+	
+	    // Draw the cursor with info
+	    universe.DrawCursorInfo(g2d, screen, mousePosition);
 
         // Draw the planets
         universe.DrawEverything(g2d, screen);
