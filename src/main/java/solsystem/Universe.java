@@ -76,11 +76,27 @@ public class Universe {
         // Convert mousePosition to Universe position
 	Coords<Double> mouseUniverseLocation = screen.GetUniverseCoords(mousePosition);
         Planet nearestPlanet = GetNearestPlanet(mouseUniverseLocation);
+        /*
         g2d.setColor(Color.white);
         String cursorStr = String.format("(%.2f,%.2f)",
                 mouseUniverseLocation.x,
                 mouseUniverseLocation.y);
         g2d.drawString(cursorStr, mousePosition.x, mousePosition.y); // or GetX()?
+        */
+        DrawPlanetInfo(g2d, screen, nearestPlanet);
+    }
+
+    private void DrawPlanetInfo(Graphics2D g2d, Screen screen, Planet planet){
+        String info;
+        int x = 10;
+        int y = 10;
+        int inc = 10;
+
+        g2d.setColor(Color.lightGray);
+        g2d.drawString(planet.name, x, y+=inc);
+        info = String.format("Location: %.2f,%.2f", planet.location.x, planet.location.y);
+        g2d.drawString(info, x, y+=inc);
+        //planet.
     }
 
     private Planet GetNearestPlanet(Coords<Double> universeLocation){

@@ -105,6 +105,18 @@ public class Game {
 
         // Draw the planets
         universe.DrawEverything(g2d, screen);
+
+        // Draw the game date
+        DrawGameDate(g2d);
+    }
+
+    private void DrawGameDate(Graphics2D g2d){
+        String info;
+        int x = 10;
+        int y = screen.GetWindowSize().y - 20;
+        info = String.format("Day: %d", gameDay);
+        g2d.setColor(Color.lightGray);
+        g2d.drawString(info, x, y);
     }
 
     public void HandleKeyboard(KeyEvent e){

@@ -10,6 +10,8 @@ import javax.swing.SwingUtilities;
  */
 
 public class Window extends JFrame{
+
+    private Coords<Integer> windowSize = new Coords<>(800, 600);
         
     private Window()
     {
@@ -29,7 +31,7 @@ public class Window extends JFrame{
         else // Window mode
         {
             // Size of the frame.
-            this.setSize(800, 600);
+            this.setSize(windowSize.x, windowSize.y);
             // Puts frame to center of the screen.
             this.setLocationRelativeTo(null);
             // So that frame cannot be resizable by the user.

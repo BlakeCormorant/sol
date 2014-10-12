@@ -37,6 +37,10 @@ public final class Screen{
 
     }
 
+    public Coords<Integer> GetWindowSize(){
+        return windowSize;
+    }
+
     public void SetScreenCentre(double xUniverseViewCentre, double yUniverseViewCentre){
         viewUniverseCentre.x = xUniverseViewCentre;
         viewUniverseCentre.y = yUniverseViewCentre;
