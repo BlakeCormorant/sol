@@ -75,7 +75,8 @@ public class Universe {
         // Draw some text
         // Convert mousePosition to Universe position
 	Coords<Double> mouseUniverseLocation = screen.GetUniverseCoords(mousePosition);
-        Planet nearestPlanet = GetNearestPlanet(mouseUniverseLocation);
+        //Planet nearestPlanet = GetNearestPlanet(mouseUniverseLocation);
+        Planet nearestPlanet = GetNearest(mouseUniverseLocation, planetList);
         /*
         g2d.setColor(Color.white);
         String cursorStr = String.format("(%.2f,%.2f)",
@@ -104,25 +105,25 @@ public class Universe {
         screen.DrawSelectSquare(g2d, screenPoint);
     }
 
-    private Planet GetNearestPlanet(Coords<Double> universeLocation){
-        // Loop through planets
-        Iterator<Planet> pli = planetList.iterator();
+    private <T extends Body> T GetNearest(Coords<Double> universeLocation, List<T> tList){
+        // Loop through elements
+        Iterator<T> tli = tList.iterator();
         double smallestDistance = 10000000;
-        Planet p; // = pli.next();
-        Planet planet = planetList.get(0); // That should get the first planet
+        T b; // = pli.next();
+        T body = tList.get(0); // That should get the first planet
         double dist;
 
-        while(pli.hasNext()){
-            p = pli.next();
-            dist = Distance(universeLocation, p.location);
+        while(tli.hasNext()){
+            b = tli.next();
+            dist = Distance(universeLocation, b.location);
             //System.out.printf("Distance:%f", dist);
             if(dist < smallestDistance){
-                planet = p;
+                body = b;
                 smallestDistance = dist;
             }
         }
         //System.out.printf("Found planet: %s", planet.name);
-        return planet;
+        return body;
     }
 
     public double Distance(Coords<Double> a, Coords<Double> b){
