@@ -71,7 +71,7 @@ public class Universe {
         DrawBody(g2d, screen, sun);
     }
 
-    public void DrawCursorInfo(Graphics2D g2d, Screen screen, Point mousePosition, boolean selected){
+    public void DrawCursorInfo(Graphics2D g2d, Screen screen, Point mousePosition){
         // Draw some text
         // Convert mousePosition to Universe position
 	    Coords<Double> mouseUniverseLocation = screen.GetUniverseCoords(mousePosition);
@@ -84,10 +84,10 @@ public class Universe {
                 mouseUniverseLocation.y);
         g2d.drawString(cursorStr, mousePosition.x, mousePosition.y); // or GetX()?
         */
-        DrawPlanetInfo(g2d, screen, nearestPlanet, selected);
+        DrawPlanetInfo(g2d, screen, nearestPlanet);
     }
 
-    private void DrawPlanetInfo(Graphics2D g2d, Screen screen, Planet planet, boolean selected){
+    private void DrawPlanetInfo(Graphics2D g2d, Screen screen, Planet planet){
         String info;
         int x = 10;
         int y = 10;
@@ -102,7 +102,7 @@ public class Universe {
         //Draw select box
         screenLoc = screen.CalculateScreenPos(planet.location);
         screenPoint.setLocation(screenLoc.x, screenLoc.y);
-        DrawSelectSquare(g2d, screenPoint, selected);
+        DrawSelectSquare(g2d, screenPoint);
     }
 
     public Planet GetNearest(Coords<Double> universeLocation){
@@ -154,14 +154,9 @@ public class Universe {
         }
     }
 
-    public void DrawSelectSquare(Graphics2D g2d, Point screenPosition, boolean selected){
+    public void DrawSelectSquare(Graphics2D g2d, Point screenPosition){
         int halfBoxSize = 10;
-        if(selected){
-            g2d.setColor(Color.green);
-        }
-        else{
-            g2d.setColor(Color.darkGray);
-        }
+        g2d.setColor(Color.darkGray);
         g2d.drawRect(screenPosition.x-halfBoxSize, screenPosition.y-halfBoxSize, 2*halfBoxSize, 2*halfBoxSize);
     }
 

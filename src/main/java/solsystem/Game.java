@@ -107,9 +107,9 @@ public class Game {
             // Centre the view
             screen.SetScreenCentre(selectedBody.location);
         }
-	
+
 	    // Draw the cursor with info
-	    universe.DrawCursorInfo(g2d, screen, mousePosition, selected);
+	    universe.DrawCursorInfo(g2d, screen, mousePosition);
 
         // Draw the planets
         universe.DrawEverything(g2d, screen);
