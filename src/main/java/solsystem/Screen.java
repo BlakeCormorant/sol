@@ -100,4 +100,9 @@ public final class Screen{
 
         return retCoords;
     }
+    public void DrawSelectSquare(Graphics2D g2d, Point screenPosition){
+        int halfBoxSize = 10;
+        g2d.setColor(Color.darkGray);
+        g2d.drawRect(screenPosition.x-halfBoxSize, screenPosition.y-halfBoxSize, 2*halfBoxSize, 2*halfBoxSize);
+    }
 }

@@ -43,7 +43,7 @@ public class Universe {
         Coords<Integer> screenPos;
         double drawSize;
         double minBodySize = 2;
-	double minSunTemp = 1200;
+	    double minSunTemp = 1200;
         double noShowSize = 0.001;
 
         drawSize = 2 * body.GetDiameter() / screen.GetZoom();
@@ -91,31 +91,36 @@ public class Universe {
         int x = 10;
         int y = 10;
         int inc = 10;
+        Coords<Integer> screenLoc;
+        Point screenPoint = new Point();
 
         g2d.setColor(Color.lightGray);
         g2d.drawString(planet.name, x, y+=inc);
         info = String.format("Location: %.2f,%.2f", planet.location.x, planet.location.y);
         g2d.drawString(info, x, y+=inc);
-        //planet.
+        //Draw select box
+        screenLoc = screen.CalculateScreenPos(planet.location);
+        screenPoint.setLocation(screenLoc.x, screenLoc.y);
+        screen.DrawSelectSquare(g2d, screenPoint);
     }
 
     private Planet GetNearestPlanet(Coords<Double> universeLocation){
         // Loop through planets
         Iterator<Planet> pli = planetList.iterator();
         double smallestDistance = 10000000;
-        Planet p = pli.next();
-        Planet planet = p;
+        Planet p; // = pli.next();
+        Planet planet = planetList.get(0); // That should get the first planet
         double dist;
 
-        do{
+        while(pli.hasNext()){
+            p = pli.next();
             dist = Distance(universeLocation, p.location);
             //System.out.printf("Distance:%f", dist);
             if(dist < smallestDistance){
                 planet = p;
                 smallestDistance = dist;
             }
-            p = pli.next();
-        }while(pli.hasNext());
+        }
         //System.out.printf("Found planet: %s", planet.name);
         return planet;
     }
@@ -142,4 +147,6 @@ public class Universe {
             //System.out.printf("Aphelion: %f, t: %f, period: %f, cos: %f", p.GetAphelion(), t, p.GetPeriod(), Math.cos(2 * Math.PI * t / p.GetPeriod()));
         }
     }
+
+
 }
