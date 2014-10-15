@@ -71,10 +71,10 @@ public class Universe {
         DrawBody(g2d, screen, sun);
     }
 
-    public void DrawCursorInfo(Graphics2D g2d, Screen screen, Point mousePosition){
+    public void DrawCursorInfo(Graphics2D g2d, Screen screen, Point mousePosition, boolean selected){
         // Draw some text
         // Convert mousePosition to Universe position
-	Coords<Double> mouseUniverseLocation = screen.GetUniverseCoords(mousePosition);
+	    Coords<Double> mouseUniverseLocation = screen.GetUniverseCoords(mousePosition);
         //Planet nearestPlanet = GetNearestPlanet(mouseUniverseLocation);
         Planet nearestPlanet = GetNearest(mouseUniverseLocation, planetList);
         /*
@@ -84,10 +84,10 @@ public class Universe {
                 mouseUniverseLocation.y);
         g2d.drawString(cursorStr, mousePosition.x, mousePosition.y); // or GetX()?
         */
-        DrawPlanetInfo(g2d, screen, nearestPlanet);
+        DrawPlanetInfo(g2d, screen, nearestPlanet, selected);
     }
 
-    private void DrawPlanetInfo(Graphics2D g2d, Screen screen, Planet planet){
+    private void DrawPlanetInfo(Graphics2D g2d, Screen screen, Planet planet, boolean selected){
         String info;
         int x = 10;
         int y = 10;
@@ -102,7 +102,12 @@ public class Universe {
         //Draw select box
         screenLoc = screen.CalculateScreenPos(planet.location);
         screenPoint.setLocation(screenLoc.x, screenLoc.y);
-        screen.DrawSelectSquare(g2d, screenPoint);
+        DrawSelectSquare(g2d, screenPoint, selected);
+    }
+
+    public Planet GetNearest(Coords<Double> universeLocation){
+        // Loop through elements
+        return GetNearest(universeLocation, planetList);
     }
 
     private <T extends Body> T GetNearest(Coords<Double> universeLocation, List<T> tList){
@@ -148,6 +153,18 @@ public class Universe {
             //System.out.printf("Aphelion: %f, t: %f, period: %f, cos: %f", p.GetAphelion(), t, p.GetPeriod(), Math.cos(2 * Math.PI * t / p.GetPeriod()));
         }
     }
+
+    public void DrawSelectSquare(Graphics2D g2d, Point screenPosition, boolean selected){
+        int halfBoxSize = 10;
+        if(selected){
+            g2d.setColor(Color.green);
+        }
+        else{
+            g2d.setColor(Color.darkGray);
+        }
+        g2d.drawRect(screenPosition.x-halfBoxSize, screenPosition.y-halfBoxSize, 2*halfBoxSize, 2*halfBoxSize);
+    }
+
 
 
 }

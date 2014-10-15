@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -24,6 +25,8 @@ public class Game {
     private Screen screen; //= new Screen(800, 600);
     private Universe universe; // = new Universe();
     private long gameDay;
+    private boolean selected;
+    private Body selectedBody;
 
     public Game()
     {
@@ -54,6 +57,7 @@ public class Game {
         screen = new Screen(800, 600);
         universe = new Universe();
         gameDay = 0;
+        selected = false;
 
     }
     
@@ -99,9 +103,13 @@ public class Game {
     public void Draw(Graphics2D g2d, Point mousePosition)
     {
         // This happens every UpdateGame
+        if(selected){
+            // Centre the view
+            screen.SetScreenCentre(selectedBody.location);
+        }
 	
 	    // Draw the cursor with info
-	    universe.DrawCursorInfo(g2d, screen, mousePosition);
+	    universe.DrawCursorInfo(g2d, screen, mousePosition, selected);
 
         // Draw the planets
         universe.DrawEverything(g2d, screen);
@@ -132,6 +140,22 @@ public class Game {
             screen.PanUp();
         if(e.getKeyCode() == KeyEvent.VK_UP)
             screen.PanDown();
+
+
+    }
+
+    public void HandleMouseClick(MouseEvent e){
+        // Select the currently selected body
+        if(e.getButton() == MouseEvent.BUTTON1){
+            System.out.println("Select");
+            selected = true;
+            Coords<Double> mouseUniverseLocation = screen.GetUniverseCoords(e.getPoint());
+            selectedBody = universe.GetNearest(mouseUniverseLocation);
+        }
+        else if(e.getButton() == MouseEvent.BUTTON3){
+            System.out.println("Unselect");
+            selected = false;
+        }
 
 
     }

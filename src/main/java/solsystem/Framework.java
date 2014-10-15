@@ -335,5 +335,17 @@ public class Framework extends Canvas {
     public void mouseClicked(MouseEvent e)
     {
         System.out.printf("Mouse %d click at (%d,%d)\n", e.getButton(), e.getX(), e.getY());
+        switch (gameState)
+        {
+            case MAIN_MENU:
+                newGame();
+                break;
+            case GAMEOVER:
+                restartGame();
+                break;
+            case PLAYING:
+                game.HandleMouseClick(e);
+                break;
+        }
     }
 }

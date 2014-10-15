@@ -45,6 +45,9 @@ public final class Screen{
         viewUniverseCentre.x = xUniverseViewCentre;
         viewUniverseCentre.y = yUniverseViewCentre;
     }
+    public void SetScreenCentre(Coords<Double> universeViewCentre){
+        SetScreenCentre(universeViewCentre.x, universeViewCentre.y);
+    }
 
     //public SetScreenZoom()
 
@@ -99,10 +102,5 @@ public final class Screen{
         retCoords.y = yScaled;
 
         return retCoords;
-    }
-    public void DrawSelectSquare(Graphics2D g2d, Point screenPosition){
-        int halfBoxSize = 10;
-        g2d.setColor(Color.darkGray);
-        g2d.drawRect(screenPosition.x-halfBoxSize, screenPosition.y-halfBoxSize, 2*halfBoxSize, 2*halfBoxSize);
     }
 }
