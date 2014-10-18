@@ -24,7 +24,7 @@ public class Game {
     //private Body planet[numPlanets]; // This would require a default constructor, which I don't want?
     private Screen screen; //= new Screen(800, 600);
     private Universe universe; // = new Universe();
-    private long gameDay;
+    private double gameDay;
     private boolean selected;
     private Body selectedBody;
 
@@ -88,7 +88,7 @@ public class Game {
      */
     public void UpdateGame(long gameTime, Point mousePosition)
     {
-        gameDay++;
+        gameDay += 0.1;
         //System.out.println("Game.UpdateGame()..."); // This happens rather quickly
         universe.UpdatePlanetPositions(gameDay);
 
@@ -122,7 +122,7 @@ public class Game {
         String info;
         int x = 10;
         int y = screen.GetWindowSize().y - 20;
-        info = String.format("Day: %d", gameDay);
+        info = String.format("Day: %.1f", gameDay);
         g2d.setColor(Color.lightGray);
         g2d.drawString(info, x, y);
     }

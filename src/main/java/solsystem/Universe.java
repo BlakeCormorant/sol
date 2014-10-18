@@ -137,7 +137,7 @@ public class Universe {
         return Math.sqrt(x+y);
     }
 
-    public void UpdatePlanetPositions(long timeSlice){
+    public void UpdatePlanetPositions(double timeSlice){
         // Use an equation
         // Iterator
         double x;
