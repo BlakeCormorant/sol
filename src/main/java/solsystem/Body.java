@@ -17,8 +17,7 @@ import java.util.Vector;
 public class Body {
     public String name;
     private double mass;
-    private double aphelion;
-    private double perihelion;
+    private double distance; // 1000 kms
     private double period; // days
     private double diameter;
     private double minTempK;
@@ -31,7 +30,7 @@ public class Body {
     public Body(Body b) {
         this.name = b.name;
         this.mass = b.mass;
-        this.diameter = b.diameter;
+        this.radius = b.radius;
         this.aphelion = b.aphelion;
         this.perihelion = b.perihelion;
         this.period = b.period;
@@ -42,15 +41,15 @@ public class Body {
 
     }
 */
-    // Aphelion and perihelion are in 1000kms, diam in km, mass relative to sun x10^-6. Orbital speed in km(per s?).
-    public Body(String name, double mass, double diameter, double aphelion, double perihelion, double orbitalSpeed, double period, double minTempK, double maxTempK, Color colour){
+    // diam in km, mass relative to sun x10^-6. Orbital speed in km(per s?).
+    public Body(String name, double mass, double radius, double distance,
+                double period, double minTempK, double maxTempK, Color colour){
         dbgLog = Logger.getLogger(Framework.class.getName());
         dbgLog.log(Level.INFO, "Body Constructor");
         this.name = name;
         this.mass = mass;
-        this.diameter = diameter;
-        this.aphelion = aphelion;
-        this.perihelion = perihelion;
+        this.diameter = radius;
+        this.distance = distance;
         this.period = period;
         this.minTempK = minTempK;
         this.maxTempK = maxTempK;
@@ -68,9 +67,7 @@ public class Body {
 */
     public double GetDiameter(){ return diameter; }
 
-    public double GetAphelion(){ return aphelion; }
-
-    public double GetPerihelion(){ return perihelion; }
+    public double GetDistance(){ return distance; }
 
     public double GetPeriod(){ return period; }
 
@@ -82,7 +79,7 @@ public class Body {
         System.out.printf("CalculateStartingLocation()...");
         // This is rubbish at the moment
         //System.out.printf("aphelion: %f\n", aphelion);
-        location.x = aphelion;
+        location.x = distance;
         //System.out.printf("assignment made\n");
         //System.out.printf("location: %f\n", location.x);
         location.y = (double)0.0;
