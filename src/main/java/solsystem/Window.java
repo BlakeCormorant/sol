@@ -50,7 +50,10 @@ public class Window extends JFrame{
 
     public static void main(String[] args)
     {
-        System.out.println("Running main()...");
+        System.out.printf("Running main() num args: %d\n", args.length);
+        if(args.length > 0) {
+            System.out.printf("arg[0] %s\n", args[0].toString());
+        }
         // Use the event dispatch thread to build the UI for thread-safety.
         SwingUtilities.invokeLater(new Runnable() {
             @Override
