@@ -28,6 +28,7 @@ public class Game {
     private boolean selected;
     private Body selectedBody;
     private boolean server;
+    private MPUpdater mpUpdater;
 
     public Game(boolean server)
     {
@@ -65,6 +66,13 @@ public class Game {
         universe = new Universe();
         gameDay = 0;
         selected = false;
+        if(server){
+            mpUpdater = new Server();
+        }
+        else
+        {
+            mpUpdater = new Client();
+        }
 
     }
     
@@ -98,6 +106,7 @@ public class Game {
         gameDay += 0.1;
         //System.out.println("Game.UpdateGame()..."); // This happens rather quickly
         universe.UpdatePlanetPositions(gameDay);
+        mpUpdater.Update();
 
     }
     

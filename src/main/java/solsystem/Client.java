@@ -7,8 +7,8 @@ import java.net.*;
 /**
  * Created by BlakeCormorant on 21/10/14.
  */
-public class Client {
-    public static void main(String args[]) {
+public class Client implements MPUpdater {
+    public void Client() {
         try {
             Socket skt = new Socket("localhost", 1234);
             BufferedReader in = new BufferedReader(new
@@ -24,5 +24,9 @@ public class Client {
         catch(Exception e) {
             System.out.print("Client failed to connect!\n");
         }
+    }
+
+    public void Update(){
+        System.out.println("Client Update...");
     }
 }

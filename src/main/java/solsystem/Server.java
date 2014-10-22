@@ -7,8 +7,8 @@ import java.net.*;
 /**
  * Created by BlakeCormorant on 21/10/14.
  */
-public class Server {
-    public static void main(String args[]) {
+public class Server implements MPUpdater {
+    public void Server() {
         String data = "This is my test string";
         try {
             ServerSocket srvr = new ServerSocket(1234);
@@ -25,4 +25,9 @@ public class Server {
             System.out.print("Server failed to initialise!\n");
         }
     }
+
+    public void Update(){
+        System.out.println("Server Update...");
+    }
+
 }
