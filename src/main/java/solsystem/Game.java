@@ -27,12 +27,18 @@ public class Game {
     private double gameDay;
     private boolean selected;
     private Body selectedBody;
+    private boolean server;
 
-    public Game()
+    public Game(boolean server)
     {
         System.out.println("Game() (constructor)...");
         Framework.gameState = Framework.GameState.GAME_CONTENT_LOADING;
-        
+
+        this.server = server; // TODO: Could run server activities as a thread -> but this might just create complications
+
+
+        // Why on earth does this little bit need to be run as a thread?! It takes hardly any time...
+        // I guess because if there was lots of initialisation, we don't want the app to hang.
         Thread threadForInitGame = new Thread() {
             @Override
             public void run(){
@@ -45,6 +51,7 @@ public class Game {
             }
         };
         threadForInitGame.start();
+
     }
     
     

@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 
 public class Window extends JFrame{
 
-    private Coords<Integer> windowSize = new Coords<>(800, 600);
+    public Coords<Integer> windowSize = new Coords<>(800, 600);
         
     private Window()
     {
@@ -50,6 +50,7 @@ public class Window extends JFrame{
 
     public static void main(String[] args)
     {
+        boolean was = false;
         System.out.printf("Running main() num args: %d\n", args.length);
         if(args.length > 0) {
             System.out.printf("arg[0] %s\n", args[0].toString());

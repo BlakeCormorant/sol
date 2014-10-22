@@ -82,7 +82,6 @@ public class Framework extends Canvas {
         super();
         dbgLog = Logger.getLogger(Framework.class.getName());
         dbgLog.log(Level.INFO, "Framework() (constructor)");
-
         gameState = GameState.VISUALIZING;
         
         //We start game in new thread.
@@ -253,13 +252,13 @@ public class Framework extends Canvas {
     /**
      * Starts new game.
      */
-    private void newGame()
+    private void newGame(boolean server)
     {
         // We set gameTime to zero and lastTime to current time for later calculations.
         gameTime = 0;
         lastTime = System.nanoTime();
         
-        game = new Game();
+        game = new Game(server);
     }
     
     /**
@@ -314,7 +313,10 @@ public class Framework extends Canvas {
         switch (gameState)
         {
             case MAIN_MENU:
-                newGame();
+                if(e.getKeyCode() == KeyEvent.VK_S)
+                    newGame(true);
+                else
+                    newGame(false);
                 break;
             case GAMEOVER:
                 if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER)
@@ -338,7 +340,7 @@ public class Framework extends Canvas {
         switch (gameState)
         {
             case MAIN_MENU:
-                newGame();
+                newGame(false); // TODO: a menu option would be to run as server or client
                 break;
             case GAMEOVER:
                 restartGame();
