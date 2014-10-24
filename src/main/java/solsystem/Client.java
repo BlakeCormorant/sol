@@ -10,7 +10,7 @@ import java.net.*;
 public class Client implements MPUpdater {
     public void Client() {
         try {
-            Socket skt = new Socket("localhost", 1234);
+            Socket skt = new Socket("localhost", 20596);
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(skt.getInputStream()));
             System.out.print("Received string: '");
@@ -27,6 +27,6 @@ public class Client implements MPUpdater {
     }
 
     public void Update(){
-        System.out.println("Client Update...");
+        //System.out.println("Client Update...");
     }
 }

@@ -11,7 +11,7 @@ public class Server implements MPUpdater {
     public void Server() {
         String data = "This is my test string";
         try {
-            ServerSocket srvr = new ServerSocket(1234);
+            ServerSocket srvr = new ServerSocket(20596);
             Socket skt = srvr.accept();
             System.out.print("Server has connected!\n");
             PrintWriter out = new PrintWriter(skt.getOutputStream(), true);
@@ -27,7 +27,7 @@ public class Server implements MPUpdater {
     }
 
     public void Update(){
-        System.out.println("Server Update...");
+        //System.out.println("Server Update...");
     }
 
 }
