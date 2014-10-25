@@ -67,11 +67,15 @@ public class Game {
         gameDay = 0;
         selected = false;
         if(server){
+            System.out.println("Creating server...");
             mpUpdater = new Server();
+            mpUpdater.Connect();
         }
         else
         {
+            System.out.println("Creating client...");
             mpUpdater = new Client();
+            mpUpdater.Connect();
         }
 
     }

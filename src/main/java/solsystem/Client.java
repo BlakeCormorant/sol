@@ -8,11 +8,14 @@ import java.net.*;
  * Created by BlakeCormorant on 21/10/14.
  */
 public class Client implements MPUpdater {
-    public void Client() {
+    private Socket skt;
+    private BufferedReader in;
+
+    public void Connect() {
         try {
-            Socket skt = new Socket("localhost", 20596);
-            BufferedReader in = new BufferedReader(new
-                    InputStreamReader(skt.getInputStream()));
+            System.out.println("Trying to connect...");
+            skt = new Socket("localhost", 20596);
+            in = new BufferedReader(new InputStreamReader(skt.getInputStream()));
             System.out.print("Received string: '");
 
             while (!in.ready()) {}
