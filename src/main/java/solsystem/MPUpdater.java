@@ -5,5 +5,5 @@ package solsystem;
  */
 public interface MPUpdater {
     public void Connect();
-    public void Update();
+    public void Update(double day);
 }

@@ -110,7 +110,7 @@ public class Game {
         gameDay += 0.1;
         //System.out.println("Game.UpdateGame()..."); // This happens rather quickly
         universe.UpdatePlanetPositions(gameDay);
-        mpUpdater.Update();
+        mpUpdater.Update(gameDay);
 
     }
     
