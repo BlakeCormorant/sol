@@ -50,7 +50,7 @@ public class Server implements MPUpdater {
             srvr.close();
         }
         catch(Exception e) {
-            System.out.print("Server failed to initialise!\n");
+            System.out.println("Server failed to initialise: " + e.getMessage());
         }
     }
 

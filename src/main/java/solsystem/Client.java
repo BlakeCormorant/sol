@@ -35,6 +35,7 @@ public class Client implements MPUpdater {
             //packet = new MPPacket((MPPacket)(ois.readObject()));
             packet = new MPPacket();
             System.out.println("Created packet...");
+
             //packet = (MPPacket)ois.readObject();
             ois.readObject(); // TODO Figure out why this fails
 
@@ -52,7 +53,7 @@ public class Client implements MPUpdater {
             //in.close();
         }
         catch(Exception e) {
-            System.out.print("Client failed to connect!\n");
+            System.out.println("Client failed to connect: " + e.getMessage());
         }
     }
 

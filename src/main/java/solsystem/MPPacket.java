@@ -30,17 +30,18 @@ public class MPPacket implements java.io.Serializable{
 
     private void writeObject(java.io.ObjectOutputStream stream)
             throws IOException {
-        stream.writeObject(type);
-        stream.writeInt(ref);
-        stream.writeObject(value);
+        //stream.writeObject(type);
+        stream.writeByte(type);
+        stream.writeByte(ref);
+        stream.writeDouble(value);
     }
 
     private void readObject(java.io.ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         //type = (String) stream.readObject();
-        type = stream.readByte();
-        ref = stream.readByte();
-        value = stream.readDouble();
+        this.type = stream.readByte();
+        this.ref = stream.readByte();
+        this.value = stream.readDouble();
     }
 
     @Override
