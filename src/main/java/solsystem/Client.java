@@ -36,12 +36,12 @@ public class Client implements MPUpdater {
             packet = new MPPacket();
             System.out.println("Created packet...");
 
-            //packet = (MPPacket)ois.readObject();
-            ois.readObject(); // TODO Figure out why this fails
+            packet = (MPPacket)ois.readObject();
+            //ois.readObject(); // TODO Figure out why this fails
 
             System.out.println("Assigned packet...");
 
-            System.out.printf("Packet contains value: %f" + packet.value);
+            System.out.printf("Packet contains value: %f", packet.value); // TODO currently contains 0.00
 
             //in = new BufferedReader(new InputStreamReader(skt.getInputStream()));
             //System.out.print("Received string: '");
