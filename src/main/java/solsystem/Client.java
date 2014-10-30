@@ -51,8 +51,18 @@ public class Client implements MPUpdater {
     }
 
     public void Update(double day){
-        //System.out.println("Client Update...");
+        // This happens pretty fast
+        // System.out.println("Client Update...");
         // If we're a client then we are waiting to pick up time checks from the server.
+        try {
+            System.out.println("Client reading...");
+            packet = new MPPacket((MPPacket) ois.readObject());
+            System.out.println("read it...");
+        }
+        catch(Exception e){
+            System.out.println("Failed to update: " + e.getMessage());
+        }
+        System.out.printf("Packet contains value: %f", packet.value);
     }
 
     public void Disconnect(){
