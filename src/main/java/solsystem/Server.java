@@ -10,9 +10,7 @@ import java.net.*;
 public class Server implements MPUpdater {
     private ServerSocket srvr;
     private Socket skt;
-    //private PrintWriter out;
     private MPPacket packet;
-    //private FileOutputStream fos;
     ObjectOutputStream oout;
 
     public void Connect() {
@@ -21,14 +19,11 @@ public class Server implements MPUpdater {
         String data = "This is my test string";
         try {
             System.out.print("Server waiting for connection...\n");
+
             srvr = new ServerSocket(20596);
             skt = srvr.accept();
             System.out.print("Server has connected!\n");
 
-
-
-            // create a new file with an ObjectOutputStream
-            //fos = new FileOutputStream("test.txt");
             oout = new ObjectOutputStream(skt.getOutputStream());
 
             System.out.println("ObjectOutputStream created...");
@@ -39,15 +34,7 @@ public class Server implements MPUpdater {
 
             oout.flush();
 
-            oout.close();
 
-
-            //out = new PrintWriter(skt.getOutputStream(), true);
-            //System.out.print("Sending string: '" + data + "'\n");
-            //out.print(data);
-            //out.close();
-            skt.close();
-            srvr.close();
         }
         catch(Exception e) {
             System.out.println("Server failed to initialise: " + e.getMessage());
@@ -61,7 +48,29 @@ public class Server implements MPUpdater {
         //System.out.printf("dayMod: %f", dayMod);
         if(dayMod < 0.1){
             System.out.printf("Server sending time update %f...\n", day);
+            try {
+                oout.writeObject(packet);
+            }
+            catch(Exception e) {
+                System.out.println("Server failed to send update: " + e.getMessage());
+            }
         }
+    }
+
+    public void Disconnect(){
+        try{
+            System.out.println("Server Disconnecting...");
+            oout.close();
+            System.out.println("Output Stream Closed...");
+            skt.close();
+            System.out.println("Socket Closed...");
+            srvr.close();
+            System.out.println("Server Closed...");
+        }
+        catch(Exception e) {
+            System.out.println("Server failed to disconnect: " + e.getMessage());
+        }
+
     }
 
 }

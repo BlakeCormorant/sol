@@ -9,7 +9,6 @@ import java.net.*;
  */
 public class Client implements MPUpdater {
     private Socket skt;
-    private BufferedReader in;
     private InputStream is;
     private ObjectInputStream ois;
     private MPPacket packet;
@@ -33,15 +32,9 @@ public class Client implements MPUpdater {
             // read and print an object and cast it as string
 
             //packet = new MPPacket((MPPacket)(ois.readObject()));
-            packet = new MPPacket();
-            System.out.println("Created packet...");
+            packet = new MPPacket((MPPacket)ois.readObject());
 
-            packet = (MPPacket)ois.readObject();
-            //ois.readObject(); // TODO Figure out why this fails
-
-            System.out.println("Assigned packet...");
-
-            System.out.printf("Packet contains value: %f", packet.value); // TODO currently contains 0.00
+            System.out.printf("Packet contains value: %f", packet.value);
 
             //in = new BufferedReader(new InputStreamReader(skt.getInputStream()));
             //System.out.print("Received string: '");
@@ -50,7 +43,7 @@ public class Client implements MPUpdater {
             //System.out.println(in.readLine()); // Read one line and output it
 
             //System.out.print("'\n");
-            //in.close();
+
         }
         catch(Exception e) {
             System.out.println("Client failed to connect: " + e.getMessage());
@@ -60,5 +53,19 @@ public class Client implements MPUpdater {
     public void Update(double day){
         //System.out.println("Client Update...");
         // If we're a client then we are waiting to pick up time checks from the server.
+    }
+
+    public void Disconnect(){
+        try{
+            System.out.println("Client disconnecting...");
+            ois.close();
+            System.out.println("Object input stream closed...");
+            is.close();
+            System.out.println("Input stream closed.");
+        }
+        catch(Exception e) {
+            System.out.println("Client failed to disconnect: " + e.getMessage());
+        }
+
     }
 }

@@ -6,4 +6,5 @@ package solsystem;
 public interface MPUpdater {
     public void Connect();
     public void Update(double day);
+    public void Disconnect();
 }
