@@ -48,21 +48,38 @@ public class Client implements MPUpdater {
         catch(Exception e) {
             System.out.println("Client failed to connect: " + e.getMessage());
         }
+
+        // TODO I think this is where we will kick off the new thread
+        Thread receiverThread = new Thread() {
+            @Override
+            public void run(){
+                Receiver();
+            }
+        };
+        receiverThread.start();
+    }
+
+    private void Receiver() {
+        while (true) {
+            try {
+                System.out.println("Client reading...");
+                packet = new MPPacket((MPPacket) ois.readObject());
+                //System.out.println("read it...");
+            }
+            catch (Exception e) {
+                System.out.println("Failed to update: " + e.getMessage());
+            }
+            System.out.printf("Packet contains value: %f\n", packet.value);
+        }
     }
 
     public void Update(double day){
+        // TODO This update routine could do what it needs to do with the data that has been received,
+        // TODO but that has been received in some thread running elsewhere, prob in this class.
         // This happens pretty fast
         // System.out.println("Client Update...");
         // If we're a client then we are waiting to pick up time checks from the server.
-        try {
-            System.out.println("Client reading...");
-            packet = new MPPacket((MPPacket) ois.readObject());
-            System.out.println("read it...");
-        }
-        catch(Exception e){
-            System.out.println("Failed to update: " + e.getMessage());
-        }
-        System.out.printf("Packet contains value: %f", packet.value);
+
     }
 
     public void Disconnect(){
