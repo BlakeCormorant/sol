@@ -48,6 +48,7 @@ public class Server implements MPUpdater {
         //System.out.printf("dayMod: %f", dayMod);
         if(dayMod < 0.1){
             System.out.printf("Server sending time update %f...\n", day);
+            packet.value = day;
             try {
                 oout.writeObject(packet);
             }
