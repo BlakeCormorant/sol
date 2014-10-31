@@ -12,6 +12,7 @@ public class Client implements MPUpdater {
     private InputStream is;
     private ObjectInputStream ois;
     private MPPacket packet;
+    private Thread receiverThread;
 
     public void Connect() {
         try {
@@ -50,7 +51,7 @@ public class Client implements MPUpdater {
         }
 
         // TODO I think this is where we will kick off the new thread
-        Thread receiverThread = new Thread() {
+        receiverThread = new Thread() {
             @Override
             public void run(){
                 Receiver();
@@ -59,11 +60,14 @@ public class Client implements MPUpdater {
         receiverThread.start();
     }
 
+
     private void Receiver() {
         while (true) {
             try {
                 System.out.println("Client reading...");
-                packet = new MPPacket((MPPacket) ois.readObject());
+                //packet = new MPPacket((MPPacket) ois.readObject());
+                packet = (MPPacket) ois.readObject();
+
                 //System.out.println("read it...");
             }
             catch (Exception e) {

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 /**
  * Created by BlakeCormorant on 26/10/14.
+ * TODO Do I want to make this cloneable?
  */
 public class MPPacket implements java.io.Serializable{
     public byte type;
