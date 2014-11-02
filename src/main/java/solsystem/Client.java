@@ -14,6 +14,7 @@ public class Client implements MPUpdater {
     private MPPacket packet;
     private Thread receiverThread;
 
+    private boolean gameDayUpdated = false;
     private double serverGameDay = 0.0;
 
     public void Connect() {
@@ -82,7 +83,7 @@ public class Client implements MPUpdater {
 
             switch(packet.type){
                 case MPPacket.TIME_UPDATE:
-                    serverGameDay = packet.value;
+                    UpdateGameDay(packet.value);
             }
         }
     }
@@ -93,8 +94,10 @@ public class Client implements MPUpdater {
         // This happens pretty fast
         // System.out.println("Client Update...");
         // If we're a client then we are waiting to pick up time checks from the server.
-        g.gameDay = serverGameDay;
-
+        if(gameDayUpdated) {
+            g.gameDay = serverGameDay;
+            gameDayUpdated = false;
+        }
     }
 
     public void Disconnect(){
@@ -109,5 +112,10 @@ public class Client implements MPUpdater {
             System.out.println("Client failed to disconnect: " + e.getMessage());
         }
 
+    }
+
+    private void UpdateGameDay(double day){
+        gameDayUpdated = true;
+        serverGameDay = day;
     }
 }
