@@ -84,6 +84,8 @@ public class Client implements MPUpdater {
             switch(packet.type){
                 case MPPacket.TIME_UPDATE:
                     UpdateGameDay(packet.value);
+                case MPPacket.SHIP_POS_UPDATE:
+                    UpdateShipPos(packet.ref, packet.value);
             }
         }
     }
@@ -117,5 +119,9 @@ public class Client implements MPUpdater {
     private void UpdateGameDay(double day){
         gameDayUpdated = true;
         serverGameDay = day;
+    }
+
+    private void UpdateShipPos(int ref, double pos){
+
     }
 }

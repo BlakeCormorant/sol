@@ -28,18 +28,21 @@ public class MPPacket implements java.io.Serializable{
     public int type;
     public int ref;
     public double value;
+    public double value2;
 
 
     public MPPacket(MPPacket mpp){
         this.type = mpp.type;
         this.ref = mpp.ref;
         this.value = mpp.value;
+        this.value2 = mpp.value2;
     }
 
     public MPPacket(int type, int ref, double value){
         this.type = type;
         this.ref = ref;
         this.value = value;
+        this.value2 = value2;
     }
     /*
     public MPPacket(){
@@ -54,6 +57,7 @@ public class MPPacket implements java.io.Serializable{
         stream.writeInt(type);
         stream.writeInt(ref);
         stream.writeDouble(value);
+        stream.writeDouble(value2);
         //stream.write(type);
     }
 
@@ -63,6 +67,7 @@ public class MPPacket implements java.io.Serializable{
         this.type = stream.readInt();
         this.ref = stream.readInt();
         this.value = stream.readDouble();
+        this.value2 = stream.readDouble();
     }
 
     @Override
@@ -71,6 +76,7 @@ public class MPPacket implements java.io.Serializable{
                 "type=" + type +
                 ", ref=" + ref +
                 ", value=" + value +
+                ", value2=" + value2 +
                 '}';
     }
 }
