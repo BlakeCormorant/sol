@@ -14,6 +14,8 @@ public class Client implements MPUpdater {
     private MPPacket packet;
     private Thread receiverThread;
 
+    private double serverGameDay = 0.0;
+
     public void Connect() {
         try {
             System.out.println("Trying to connect...");
@@ -50,7 +52,7 @@ public class Client implements MPUpdater {
             System.out.println("Client failed to connect: " + e.getMessage());
         }
 
-        // TODO I think this is where we will kick off the new thread
+        // This is where we will kick off the new thread
         receiverThread = new Thread() {
             @Override
             public void run(){
@@ -73,16 +75,25 @@ public class Client implements MPUpdater {
             catch (Exception e) {
                 System.out.println("Failed to update: " + e.getMessage());
             }
+
             System.out.printf("Packet contains value: %f\n", packet.value);
+
+            // TODO Take action here depending upon what's in the packet
+
+            switch(packet.type){
+                case MPPacket.TIME_UPDATE:
+                    serverGameDay = packet.value;
+            }
         }
     }
 
-    public void Update(double day){
+    public void Update(double day, Game g){
         // TODO This update routine could do what it needs to do with the data that has been received,
         // TODO but that has been received in some thread running elsewhere, prob in this class.
         // This happens pretty fast
         // System.out.println("Client Update...");
         // If we're a client then we are waiting to pick up time checks from the server.
+        g.gameDay = serverGameDay;
 
     }
 

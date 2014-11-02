@@ -24,11 +24,12 @@ public class Game {
     //private Body planet[numPlanets]; // This would require a default constructor, which I don't want?
     private Screen screen; //= new Screen(800, 600);
     private Universe universe; // = new Universe();
-    private double gameDay;
     private boolean selected;
     private Body selectedBody;
     private boolean server;
     private MPUpdater mpUpdater;
+
+    public double gameDay;
 
     public Game(boolean server)
     {
@@ -110,7 +111,7 @@ public class Game {
         gameDay += 0.1;
         //System.out.println("Game.UpdateGame()..."); // This happens rather quickly
         universe.UpdatePlanetPositions(gameDay);
-        mpUpdater.Update(gameDay);
+        mpUpdater.Update(gameDay, this);
 
     }
     

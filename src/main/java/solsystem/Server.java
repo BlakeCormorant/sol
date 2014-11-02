@@ -41,7 +41,7 @@ public class Server implements MPUpdater {
         }
     }
 
-    public void Update(double day){
+    public void Update(double day, Game g){
         // TODO: If we're the server then about every second we should send a time update.
         // This could be done just by looking at the game time and updating on a modulus...
         double dayMod = day%10.0;
