@@ -7,9 +7,28 @@ import java.io.IOException;
  * TODO Do I want to make this cloneable?
  */
 public class MPPacket implements java.io.Serializable{
-    public byte type;
-    public byte ref;
+    /*
+    static public enum PacketType{
+        TIME_UPDATE (0),
+        SHIP_POS_UPDATE (1),
+        NUM_PACKET_TYPES (2);
+        public int ptype;
+
+        PacketType(int ptype){
+            this.ptype = ptype;
+        }
+
+        //private int ptype() { return ptype; }
+    }
+    */
+
+    static final public int TIME_UPDATE = 0;
+    static final public int SHIP_POS_UPDATE = 1;
+
+    public int type;
+    public int ref;
     public double value;
+
 
     public MPPacket(MPPacket mpp){
         this.type = mpp.type;
@@ -17,31 +36,32 @@ public class MPPacket implements java.io.Serializable{
         this.value = mpp.value;
     }
 
-    public MPPacket(byte type, byte ref, double value){
+    public MPPacket(int type, int ref, double value){
         this.type = type;
         this.ref = ref;
         this.value = value;
     }
-
+    /*
     public MPPacket(){
         this.type = 0;
         this.ref = 0;
         this.value = 0.0;
     }
-
+    */
     private void writeObject(java.io.ObjectOutputStream stream)
             throws IOException {
         //stream.writeObject(type);
-        stream.writeByte(type);
-        stream.writeByte(ref);
+        stream.writeInt(type);
+        stream.writeInt(ref);
         stream.writeDouble(value);
+        //stream.write(type);
     }
 
     private void readObject(java.io.ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         //type = (String) stream.readObject();
-        this.type = stream.readByte();
-        this.ref = stream.readByte();
+        this.type = stream.readInt();
+        this.ref = stream.readInt();
         this.value = stream.readDouble();
     }
 

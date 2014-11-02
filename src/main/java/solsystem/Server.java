@@ -14,7 +14,7 @@ public class Server implements MPUpdater {
     ObjectOutputStream oout;
 
     public void Connect() {
-        MPPacket packet = new MPPacket((byte)0x1, (byte)0x2, 3.5);
+        MPPacket packet = new MPPacket(MPPacket.TIME_UPDATE, 0, 0.0);
 
         String data = "This is my test string";
         try {
@@ -47,7 +47,7 @@ public class Server implements MPUpdater {
         double dayMod = day%10.0;
         //System.out.printf("dayMod: %f", dayMod);
         if(dayMod < 0.1){
-            MPPacket packet = new MPPacket((byte)0x1, (byte)0x2, day);
+            MPPacket packet = new MPPacket(MPPacket.TIME_UPDATE, 0, day);
             System.out.printf("Server sending time update %f...\n", packet.value);
             try {
                 oout.writeObject(packet);
