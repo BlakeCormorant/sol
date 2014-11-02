@@ -10,11 +10,11 @@ import java.net.*;
 public class Server implements MPUpdater {
     private ServerSocket srvr;
     private Socket skt;
-    private MPPacket packet;
+    //private MPPacket packet;
     ObjectOutputStream oout;
 
     public void Connect() {
-        packet = new MPPacket((byte)0x1, (byte)0x2, 3.5);
+        MPPacket packet = new MPPacket((byte)0x1, (byte)0x2, 3.5);
 
         String data = "This is my test string";
         try {
@@ -47,7 +47,7 @@ public class Server implements MPUpdater {
         double dayMod = day%10.0;
         //System.out.printf("dayMod: %f", dayMod);
         if(dayMod < 0.1){
-            packet.value = day;
+            MPPacket packet = new MPPacket((byte)0x1, (byte)0x2, day);
             System.out.printf("Server sending time update %f...\n", packet.value);
             try {
                 oout.writeObject(packet);
