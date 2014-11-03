@@ -36,7 +36,7 @@ public class Game {
         System.out.println("Game() (constructor)...");
         Framework.gameState = Framework.GameState.GAME_CONTENT_LOADING;
 
-        this.server = server; // TODO: Could run server activities as a thread -> but this might just create complications
+        this.server = server;
 
 
         // Why on earth does this little bit need to be run as a thread?! It takes hardly any time...
@@ -112,6 +112,8 @@ public class Game {
         //System.out.println("Game.UpdateGame()..."); // This happens rather quickly
         universe.UpdatePlanetPositions(gameDay);
         mpUpdater.Update(gameDay, this);
+
+        gameDay = mpUpdater.GetGameDayUpdate(gameDay);
 
     }
     

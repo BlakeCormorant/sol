@@ -15,7 +15,7 @@ public class Client implements MPUpdater {
     private Thread receiverThread;
 
     private boolean gameDayUpdated = false;
-    private double serverGameDay = 0.0;
+    private double lastGameDayUpdate = 0.0;
 
     public void Connect() {
         try {
@@ -30,23 +30,9 @@ public class Client implements MPUpdater {
             ois = new ObjectInputStream(is);
             System.out.println("Created new object input stream...");
 
-            // read and print an object and cast it as string
-            //System.out.println("Object as a string: " + (String) ois.readObject());
-
-            // read and print an object and cast it as string
-
-            //packet = new MPPacket((MPPacket)(ois.readObject()));
             packet = new MPPacket((MPPacket)ois.readObject());
 
             System.out.printf("Packet contains value: %f", packet.value);
-
-            //in = new BufferedReader(new InputStreamReader(skt.getInputStream()));
-            //System.out.print("Received string: '");
-
-            //while (!in.ready()) {}
-            //System.out.println(in.readLine()); // Read one line and output it
-
-            //System.out.print("'\n");
 
         }
         catch(Exception e) {
@@ -83,7 +69,8 @@ public class Client implements MPUpdater {
 
             switch(packet.type){
                 case MPPacket.TIME_UPDATE:
-                    UpdateGameDay(packet.value);
+                    lastGameDayUpdate = packet.value;
+                    gameDayUpdated = true;
                 case MPPacket.SHIP_POS_UPDATE:
                     UpdateShipPos(packet.ref, packet.value);
             }
@@ -96,10 +83,7 @@ public class Client implements MPUpdater {
         // This happens pretty fast
         // System.out.println("Client Update...");
         // If we're a client then we are waiting to pick up time checks from the server.
-        if(gameDayUpdated) {
-            g.gameDay = serverGameDay;
-            gameDayUpdated = false;
-        }
+
     }
 
     public void Disconnect(){
@@ -116,12 +100,16 @@ public class Client implements MPUpdater {
 
     }
 
-    private void UpdateGameDay(double day){
-        gameDayUpdated = true;
-        serverGameDay = day;
-    }
-
     private void UpdateShipPos(int ref, double pos){
 
+    }
+
+    // Perhaps a better framework for game updates:
+    public double GetGameDayUpdate(double day){
+        if(gameDayUpdated){
+            gameDayUpdated = false;
+            return lastGameDayUpdate;
+        }
+        return day;
     }
 }

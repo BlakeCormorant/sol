@@ -14,7 +14,7 @@ public class Server implements MPUpdater {
     ObjectOutputStream oout;
 
     public void Connect() {
-        MPPacket packet = new MPPacket(MPPacket.TIME_UPDATE, 0, 0.0);
+        //MPPacket packet = new MPPacket(MPPacket.TIME_UPDATE, 0, 0.0);
 
         String data = "This is my test string";
         try {
@@ -29,10 +29,10 @@ public class Server implements MPUpdater {
             System.out.println("ObjectOutputStream created...");
 
             // write something in the file
-            oout.writeObject(packet);
-            System.out.println("Flushing...");
+            //oout.writeObject(packet);
+            //System.out.println("Flushing...");
 
-            oout.flush();
+            //oout.flush();
 
 
         }
@@ -73,6 +73,10 @@ public class Server implements MPUpdater {
             System.out.println("Server failed to disconnect: " + e.getMessage());
         }
 
+    }
+
+    public double GetGameDayUpdate(double day){
+        return day;
     }
 
 }
