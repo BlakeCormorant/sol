@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class Planet extends Body{
     public Planet(String name, double mass, double radius, double distance, double period, double minTempK, double maxTempK, Color colour){
         super(name, mass, radius, distance, period, minTempK, maxTempK, colour);
-        System.out.printf("Planet Constructor\n");
+        System.out.printf("Planet Constructor (%s)\n", name);
     }
 /*
     public Planet(Planet p) {

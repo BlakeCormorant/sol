@@ -16,12 +16,12 @@ import java.util.Vector;
 
 public class Body {
     public String name;
-    private double mass;
-    private double distance; // 1000 kms
-    private double period; // days
-    private double diameter;
-    private double minTempK;
-    private double maxTempK;
+    protected double mass;
+    protected double radius;
+    protected double distance; // 1000 kms
+    protected double period; // days
+    protected double minTempK;
+    protected double maxTempK;
     public Color color;
     public Coords<Double> location = new Coords<>((double)0, (double)0); // cannot do Coords<double>, since containers cannot contain primitives.
     private Coords<Double> velocity;
@@ -48,7 +48,7 @@ public class Body {
         dbgLog.log(Level.INFO, "Body Constructor");
         this.name = name;
         this.mass = mass;
-        this.diameter = radius;
+        this.radius = radius;
         this.distance = distance;
         this.period = period;
         this.minTempK = minTempK;
@@ -61,11 +61,30 @@ public class Body {
 
     }
 
+    public Body(String name, double mass, double radius, double distance,
+                double period, double minTempK, double maxTempK, Color colour, Planet planet){
+        dbgLog = Logger.getLogger(Framework.class.getName());
+        dbgLog.log(Level.INFO, "Body Constructor");
+        this.name = name;
+        this.mass = mass;
+        this.radius = radius;
+        this.distance = distance;
+        this.period = period;
+        this.minTempK = minTempK;
+        this.maxTempK = maxTempK;
+        this.color = colour;
+
+        // Need to calculate a suitable starting position and orbital speed (vector).
+        //CalculateStartingLocation();
+        //CalculateScreenLocation(); // Must be done elsewhere, as this Class won't have access to screen position, zoom, etc.
+
+    }
+
     /*public Coords<Double> GetLocation(){
         return location;
     }
 */
-    public double GetDiameter(){ return diameter; }
+    public double GetRadius(){ return radius; }
 
     public double GetDistance(){ return distance; }
 
@@ -75,14 +94,14 @@ public class Body {
 
     public double GetMaxTempK(){ return maxTempK; }
 
-    private void CalculateStartingLocation(){
-        System.out.printf("CalculateStartingLocation()...");
+    protected void CalculateStartingLocation(){
+        System.out.println("CalculateStartingLocation()...");
         // This is rubbish at the moment
         //System.out.printf("aphelion: %f\n", aphelion);
         location.x = distance;
         //System.out.printf("assignment made\n");
         //System.out.printf("location: %f\n", location.x);
-        location.y = (double)0.0;
+        location.y = 0.0;
     }
 
 }

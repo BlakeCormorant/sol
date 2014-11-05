@@ -17,8 +17,10 @@ import java.lang.Math;
  * @author Blake Cormorant
  */
 public class Universe {
-    private List<Planet> planetList = new ArrayList();
+    private ArrayList<Planet> planetList = new ArrayList();
+    private ArrayList<Moon> moonList = new ArrayList();
     private Sun sun;
+    private Planet planet;
 
     public Universe(){
         sun = new Sun("Sol", 1000000, 1392684, 0, 1, 5778, 5779, Color.white);
@@ -32,11 +34,40 @@ public class Universe {
         planetList.add(new Planet("Uranus", 86810300, 25362, 2870658, (365.25*84.01), 76, 77, Color.green));
         planetList.add(new Planet("Neptune", 102410000, 24622, 4498396, (365.25*164.79), 73, 74, Color.blue));
 
+        //name, mass, radius, distance (1000 km), period
+        // Adding moons here
+        planet = planetList.get(2); // Earth
+        moonList.add(new Moon("Earth's Moon", 0.0123*5972190, 1737.5, 384.4, 27.322, -233+273.15, 123+273.15, Color.lightGray, planet));
+
+        planet = planetList.get(3); // Mars
+        moonList.add(new Moon("Phobos", 0.0123*5972190, 11.1, 58.9, 0.32, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Deimos", 0.0123*5972190, 6.2, 23.5, 1.3, -233+273.15, 123+273.15, Color.pink, planet));
+
+        planet = planetList.get(4); // Jupiter
+        moonList.add(new Moon("Io", 1, 1821.6, 421.8, 1.7, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Europa", 1, 1560, 417, 3.55, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Ganymede", 1, 2631, 1070, 7.15, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Callisto", 1, 2410, 1170, 16.7, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Amalthea", 1, 83, 112.7, 0.5, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Himalia", 1, 53, 11461, 250.6, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Elara", 1, 43, 11741, 259.6, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Pasiphae", 1, 30, 23624, 743.6, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Sinope", 1, 19, 23939, 758.9, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Lysithea", 1, 18, 11717, 259.2, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Carme", 1, 23, 23404, 734, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Anake", 1, 14, 21276, 629.77, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Leda", 1, 10, 11165, 240.9, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Thebe", 1, 49.3, 221.9, 0.675, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Adrastea", 1, 8.2, 129, 0.298, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Metis", 1, 21.5, 128, 0.295, -233+273.15, 123+273.15, Color.gray, planet));
+        moonList.add(new Moon("Callirrhoe", 1, 4.3, 24102, 758.77, -233+273.15, 123+273.15, Color.gray, planet));
+
     }
 
     public void DrawEverything(Graphics2D g2d, Screen screen){
         DrawSuns(g2d, screen);
         DrawPlanets(g2d, screen);
+        DrawMoons(g2d, screen);
     }
 
     private void DrawBody(Graphics2D g2d, Screen screen, Body body){
@@ -46,7 +77,7 @@ public class Universe {
 	    double minSunTemp = 1200;
         double noShowSize = 0.001;
 
-        drawSize = 2 * body.GetDiameter() / screen.GetZoom();
+        drawSize = 2 * body.GetRadius() / screen.GetZoom();
         if((body.GetMinTempK() < minSunTemp) && (drawSize < noShowSize))
             return;
         if(drawSize < minBodySize)
@@ -64,6 +95,15 @@ public class Universe {
         while(pli.hasNext()){
             Planet p = pli.next();
             DrawBody(g2d, screen, p);
+        }
+    }
+
+    private void DrawMoons(Graphics2D g2d, Screen screen){
+        Iterator<Moon> mi = moonList.iterator();
+
+        while(mi.hasNext()){
+            Moon m = mi.next();
+            DrawBody(g2d, screen, m);
         }
     }
 
@@ -151,6 +191,13 @@ public class Universe {
             p.location.y = p.GetDistance() * Math.sin(2 * Math.PI * t / p.GetPeriod());
             //System.out.printf("%s (%f, %f)", p.name, p.location.x, p.location.y);
             //System.out.printf("Aphelion: %f, t: %f, period: %f, cos: %f", p.GetAphelion(), t, p.GetPeriod(), Math.cos(2 * Math.PI * t / p.GetPeriod()));
+        }
+
+        Iterator<Moon> mi = moonList.iterator();
+        while(mi.hasNext()){
+            Moon m = mi.next();
+            m.location.x = m.GetPlanet().location.x + (m.GetDistance() * Math.cos(2 * Math.PI * t / m.GetPeriod()));
+            m.location.y = m.GetPlanet().location.y + (m.GetDistance() * Math.sin(2 * Math.PI * t / m.GetPeriod()));
         }
     }
 
